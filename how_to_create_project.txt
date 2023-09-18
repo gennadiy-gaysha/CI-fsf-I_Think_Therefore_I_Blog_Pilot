@@ -1,0 +1,215 @@
+Step 1: Installing Django and supporting libraries.
+
+1. Create project directory and move to it in PyCharm. Delete default main.py
+file after opening in PyCharm.
+
+2. Before creating a Django project, it's a good practice to create a virtual
+environment for it. This isolates your project's dependencies from the system-wide
+Python installation.
+python -m venv venv_name
+
+3. Activate the virtual environment (on Windows):
+venv_name\Scripts\activate
+==============================================================================
+- When you're done working on your project, deactivate the virtual
+environment.
+deactivate
+!!! PyCharm provides an option to automatically activate the virtual
+ environment
+associated with a project whenever you open a terminal within the IDE.
+File>Settings>Tools>Terminal>Activate virtualenv (check/uncheck)
+
+- Whenever you want to continue working on your project, activate the virtual
+environment first.
+venv_name\Scripts\activate
+==============================================================================
+4. In PyCharm > File > Settings > Project_name > Python Interpreter > Add
+Interpreter > C:\Users\Геннадий Гайша\Google Диск\Code_Institute\CI_Modules\
+CI-fsf-Hello_Django-Repeat\venv
+
+5. While your virtual environment is active, install Django and gunicorn using
+pip. You don't need to install Django globally on your system:
+
+When deploying a Django project to Heroku, you will typically need to use a
+web server to serve your application. Gunicorn (short for "Green Unicorn") is a
+commonly used web server that is recommended for deploying Django applications
+on Heroku.
+Heroku's platform expects the application to be run using a web server that can
+handle incoming HTTP requests. Gunicorn is one of the most popular choices
+because it is a production-ready WSGI server (Web Server Gateway Interface)
+that can handle serving Django applications efficiently and securely.
+
+pip install 'django<4' gunicorn
+
+6. Install supporting libraries (we use psycopg2 to connect to PostgreSQL):
+pip install dj_database_url==0.5.0 psycopg2 python-dotenv
+
+7. Install Cloudinary Libraries:
+pip install dj3-cloudinary-storage
+pip install urllib3==1.26.15
+
+8. If you need additional packages for your project, you can install them
+while your virtual environment is active.
+pip install package_name_1 package_name_2 package_name_3 package_name_4
+
+9. After installing all packages create requirements.txt file
+pip freeze > requirements.txt
+
+10. Create Project (codestar2023):
+Once you're in the desired directory, you can create your Django project
+using the django-admin startproject command followed by the project name. For
+example, if you want to name your project codestar2023, you can run:
+django-admin startproject codestar2023 .
+!!! The . at the end indicates that the project should be created in the current
+directory. This will create a movie_proj directory with the initial project files.
+
+11. Create App (blog):
+python manage.py startapp blog
+
+12. Add newly created app to the end of INSTALLED_APPS variable in settings.py:
+INSTALLED_APPS = [
+...,
+'blog'
+]
+
+13. To ensure that the database schema is up-to-date and ready to accommodate
+any models you define in the future:
+python manage.py migrate
+
+14. Run Server to Test:
+PyCharm: current file (dropdown menu) > Edit Configuration > Script Path:
+path to project's <manage.py> file/Parameters: runserver - this is te same as
+running this command in terminal: python manage.py runserver
+
+15. In project's root directory create 2 files:
+.gitignore
+.env
+
+16. .gitignore:
+.env
+venv/
+db.sqlite3
+===============================================================================
+Step 2: Deploying an app to Heroku.
+
+1. Create a new external database (elephantsql.com)
+===============================================================================
+To hide sensitive data, such as the Django secret key, in a Django project using
+the dotenv library, you can follow these steps:
+
+- Install python-dotenv dj_database_url and psycopg2 (done - line 45!):
+pip install python-dotenv
+pip install dj_database_url==0.5.0 psycopg2
+
+- Create third party database (elephantsql.com)
+
+- Create a .env File: Create a file named .env in the root directory of your
+Django project. This is where you'll store your sensitive data.
+
+- Place your SECRET_KEY (from settings.py) and DATABASE_URL value (URL from
+your remote third party database - elephantsql.com) in it:
+SECRET_KEY=mysecretkeyhere
+DATABASE_URL=myelephantsqlurl (!!! in DATABASE_URL in .env file insert port
+number after <...elephantsql.com:5432/...)
+
+- Access (load) Environment Variables in Settings: Open your Django project's
+settings.py file and import (at the top) the dotenv library:
+import os
+from pathlib import Path
+# ===============================================
+import dotenv
+dotenv.load_dotenv()
+import dj_database_url
+# ===============================================
+
+- Access Environment Variables: Use the os.environ dictionary to access the
+environment variables from the .env file. For example, to access the secret key:
+SECRET_KEY = os.environ.get('SECRET_KEY')
+to access remote database (!replace the local database with a remote database):
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
+- Replace 'SECRET_KEY' with the actual name of the environment variable you
+defined in your .env file (if needed)
+- Git Ignore .env: It's crucial to add .env to your .gitignore file so that you
+don't accidentally commit sensitive data to version control.
+also add venv directory and local db to .gitignore:
+.env
+venv/
+db.sqlite3
+-Use .env in Production: In production environments, you can manually set environment
+variables using the server's configuration or a service like Heroku's config vars.
+===============================================================================
+2. Create the Heroku app... and attach the database
+Settings > Config Vars:
+DATABASE_URL - (take the value from .env file)
+SECRET_KEY - (take the value from .env file)
+DISABLE_COLLECTSTATIC - 1 (temporary step for the moment, will be removed
+before deployment)
+PORT - 8000
+
+3. Procfile: Create a file named Procfile (without any file extension) in your
+project's root directory. The Procfile tells Heroku how to run your application.
+Inside the Procfile, add the following line (inserting project name):
+web: gunicorn codestar2023.wsgi:application
+
+4. Add to ALLOWED_HOSTS of settings.py:
+"127.0.0.1", "django-codestar-app-gaysha-rep-32a35f22826b.herokuapp.com", where
+the second item is generated from Heroku > settings > Domains of the current
+project
+
+5. In case of any errors:
+
+- login to heroku terminal using command:
+heroku login -i
+
+- use API key from Account settings (in case of Multi-Factor Authentication) as
+a password
+
+- heroku logs --app=django-codestar-app-gaysha-rep
+
+6. In local terminal:
+git add . > git commit -m 'message' > git push
+
+In Heroku app:
+Deploy > Github > repo-name > Search > Connect > Deploy Branch
+
+On this step you can check your deployed app on Heroku.
+
+7. Get our static and media files stored on Cloudinary.
+===============================================================================
+8. Cloudinary Setup
+Visit the Cloudinary website: https://cloudinary.com/
+Click on the Sign Up For Free button
+Provide your name, email address and choose a password
+For Primary interest, you can choose Programmable Media for image and video API
+Optional: edit your assigned cloud name to something more memorable
+Click Create Account
+Verify your email and you will be brought to the dashboard
+
+- From Cloudinary Dashboard:
+Copy your CLOUDINARY_URL e.g. API Environment Variable
+
+- Add Cloudinary URL to .env:
+CLOUDINARY_URL=...
+
+- In Heroku add to Settings tab in Config Vars e.g. CLOUDINARY_URL
+
+- settings.py - Add Cloudinary Libraries to installed apps:
+INSTALLED_APPS = [
+    …,
+    'cloudinary_storage',
+    'django.contrib.staticfiles',
+    'cloudinary',
+    …,
+]
+(note: order is important)
+
+- Tell Django to use Cloudinary to store media and static files
+Place under the Static files Note
+.......
+https://www.youtube.com/watch?v=Qhypx3Z2Heg&t=1s
+https://docs.google.com/document/d/1bRNpiUz-89RV0EPzuvbvXyGcSErbR3eRcjfMSNHUaBg/edit?usp=sharing
+
+
+

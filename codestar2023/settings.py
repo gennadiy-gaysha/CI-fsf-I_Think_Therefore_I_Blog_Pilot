@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'django_summernote',
     'blog',
 ]
 
@@ -135,7 +136,7 @@ STATIC_URL = '/static/'
 # We tell Django to use  Cloudinary to store our media and static files,
 # so this is coming from the  library that we installed above, and put
 # into our installed apps section.
-STATICFILES_STORAGE = "cloudinary_storage.storage.StaticHashedCloudinaryStorage"
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 # We set our static files directories, this is going to be a list, but
 # it's only going  to contain one item:
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

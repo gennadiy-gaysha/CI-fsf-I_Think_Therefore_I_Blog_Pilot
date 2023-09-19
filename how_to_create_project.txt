@@ -193,7 +193,7 @@ Copy your CLOUDINARY_URL e.g. API Environment Variable
 - Add Cloudinary URL to .env:
 CLOUDINARY_URL=...
 
-- In Heroku add to Settings tab in Config Vars e.g. CLOUDINARY_URL
+- (!!!) In Heroku add to Settings tab in Config Vars e.g. CLOUDINARY_URL
 
 - settings.py - Add Cloudinary Libraries to installed apps:
 INSTALLED_APPS = [

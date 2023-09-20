@@ -1,0 +1,45 @@
+build:
+Use this commit type when making changes related to your build process or
+build system. This might include configuration files, dependencies, or scripts
+used to build your project.
+
+chore:
+Chore commits are for routine tasks and maintenance that don't fall under other
+specific commit types. They can include code formatting, renaming files, or other
+non-functional changes.
+
+ci (Continuous Integration):
+These commits are related to your continuous integration setup, such as configuring
+CI/CD pipelines, scripts, or configurations for automated testing and deployment.
+
+docs:
+Use this commit type when making changes to documentation. This can include updating
+README files, inline code comments, or other project documentation.
+
+feat (Feature):
+Commits of this type are for new features or significant additions to your codebase.
+It's used when introducing new functionality to your project.
+
+fix:
+Use this type for commits that address and fix bugs or issues in your codebase. It
+indicates that you're correcting something that was not working as expected.
+
+perf (Performance):
+These commits are for improvements related to performance enhancements. It might
+involve optimizing algorithms, data structures, or making code run faster.
+
+refactor:
+Use this type when making code changes that neither fix a bug nor add new features
+but improve the code's structure, readability, or maintainability.
+
+revert:
+Revert commits are used to undo previous commits. They help in reverting the
+codebase to a previous state.
+
+style:
+Commits of this type relate to code style and formatting changes. This can include
+indentation, whitespace, and other style-related adjustments.
+
+test:
+These commits are related to adding, modifying, or removing tests in your project.
+It helps ensure code correctness and maintainability.

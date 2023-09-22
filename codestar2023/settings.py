@@ -14,8 +14,10 @@ import os
 from pathlib import Path
 # ===============================================
 import dotenv
+
 dotenv.load_dotenv()
 import dj_database_url
+
 # ===============================================
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,7 +37,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "django-codestar-app-gaysha-pil-4f8300c325d1.herokuapp.com"]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,12 +45,21 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
     'django_summernote',
     'blog',
 ]
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'codestar2023.urls'
@@ -80,7 +91,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'codestar2023.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -114,7 +124,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -127,7 +136,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

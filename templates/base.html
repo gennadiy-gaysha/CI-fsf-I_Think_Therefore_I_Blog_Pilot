@@ -41,6 +41,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                     </li>
+                    <li class="hello-user">hello, {{user.username}}</li>
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
@@ -48,6 +49,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                     </li>
+                    <li class="hello-user">hello, guest user</li>
                     {% endif %}
                 </ul>
                 <span class="navbar-text text-muted">

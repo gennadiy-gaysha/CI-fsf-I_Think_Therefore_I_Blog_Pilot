@@ -96,6 +96,12 @@ body {
     color: #E84610;
 }
 
+.hello-user{
+    padding: 8px 16px;
+    color: #23BBBB;
+    font-weight: bold;
+}
+
 .post-title {
     margin-top: 20%;
     margin-left: 5%;

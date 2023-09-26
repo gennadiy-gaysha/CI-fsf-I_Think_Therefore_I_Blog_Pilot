@@ -4,3 +4,4 @@
 3. Django Tutorial #25 - Redirecting After Login
 4. Flash Messages after each user action
 5. Use templates filters/tags
+6. API

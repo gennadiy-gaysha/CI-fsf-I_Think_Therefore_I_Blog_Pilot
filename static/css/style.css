@@ -146,3 +146,8 @@ body {
     background: transparent;
     border: none;
 }
+
+.custom-img {
+    height: 250px;
+    object-fit: cover;
+}

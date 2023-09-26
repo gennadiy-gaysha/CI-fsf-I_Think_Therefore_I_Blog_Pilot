@@ -1,3 +1,6 @@
 1. Hello Username-hello, guest user
 2.Балакирев-7:Обработчик исключений запросов с
 кнопкой возвращения на главную страницу
+3. Django Tutorial #25 - Redirecting After Login
+4. Flash Messages after each user action
+5. Use templates filters/tags

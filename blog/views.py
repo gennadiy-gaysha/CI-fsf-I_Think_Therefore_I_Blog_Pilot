@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect, HttpResponseNotFound
@@ -55,15 +56,16 @@ class PostDetail(View):
             comment = comment_form.save(commit=False)
             comment.post = post
             comment.save()
-        # else:
-        #     comment_form = CommentForm()
+            messages.add_message(request, messages.SUCCESS, 'Your comment was successfully submitted and awaits approval.')
+        else:
+            comment_form = CommentForm()
 
         return render(request, 'post_detail.html', {
             'post': post,
             'comments': comments,
             'commented': True,
             'liked': liked,
-            'comment_form': CommentForm()
+            'comment_form': CommentForm(),
         })
 
 

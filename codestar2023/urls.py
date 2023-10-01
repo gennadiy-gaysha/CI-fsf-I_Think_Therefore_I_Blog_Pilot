@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
 from blog.views import page_not_found
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
+    path('about/', include('about.urls'), name='about-urls'),
     path('', include('blog.urls'), name='blog_urls'),
     path('accounts/', include('allauth.urls')),
 ]

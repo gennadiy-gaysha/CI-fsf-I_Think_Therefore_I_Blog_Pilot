@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'crispy_forms',
     'blog',
+    'about',
 ]
 
 SITE_ID = 1
@@ -156,7 +157,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+# префикс URL-адреса для статических файлов
 STATIC_URL = '/static/'
 # We tell Django to use  Cloudinary to store our media and static files,
 # so this is coming from the  library that we installed above, and put
@@ -164,9 +165,14 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 # We set our static files directories, this is going to be a list, but
 # it's only going  to contain one item:
+# Список дополнительных нестандартных путей к статическим файлам,
+# используемых для сбора и для режима отладкию
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # We also set static route, now we don't use that in this project, but
 # it's good practice to set it anyway.
+# Путь к общей статической папке, формируемой при запуске
+# команды collectstatic (для сбора всей статики в единый каталог при
+# размещении сайта на реальном веб-сервере)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'

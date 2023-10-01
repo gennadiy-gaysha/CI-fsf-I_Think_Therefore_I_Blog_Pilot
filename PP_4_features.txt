@@ -5,3 +5,23 @@
 4. Flash Messages after each user action
 5. Use templates filters/tags
 6. API
+7. several apps
+8. input some logic into other files than views.py and
+import the bits that you need: other_stuff.pt > views.py
+9. Full CRUD available to users.
+10.Lucid chart
+11. function based view for PostDerail view: def post_detail
+
+1. Expand the messaging system to display error messages when a
+user submits an empty comment form, as well as the success messages.
+-----------------------------------------------------------------
+2. Use the social apps feature of AllAuth to add single sign-on
+using Google, Facebook or another authentication service (provider).
+-----------------------------------------------------------------
+3. Build a number_of_comments method so that we can display the
+number of comments on the front page as well as the number of likes.
+-----------------------------------------------------------------
+4. Combine knowledge of JavaScript fetch API with your Django knowledge
+to silently call the like URL in the background (change the like
+functionality) and does not reload the page.
+-----------------------------------------------------------------
